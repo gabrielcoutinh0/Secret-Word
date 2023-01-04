@@ -61,8 +61,13 @@ function App() {
     setPickedCategory(category);
     setLetters(wordLetters);
 
-    setGameStage(stages[1].name);
   }, [pickWordAndCategory]);
+
+  const InitialMenu = () => {
+    retry();
+    startGame();
+    setGameStage(stages[1].name);
+  }
 
   //process the letter input
   const verifyLetter = (letter) => {
@@ -112,7 +117,7 @@ function App() {
     //win condition
     if(guessedLetters.length === uniqueLetters.length){
       //add score
-      setScore((actualScore) => actualScore += 100);
+      setScore(score + 100);
 
       //restart game with new word
       startGame();
@@ -122,7 +127,7 @@ function App() {
 
   return (
     <div className="App">
-      {gameStage === "start" && <StartScreen startGame={startGame} />}
+      {gameStage === "start" && <StartScreen startGame={InitialMenu} />}
       {gameStage === "game" && (
         <Game 
           verifyLetter={verifyLetter} 
